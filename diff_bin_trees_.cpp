@@ -2,14 +2,14 @@
 #include<stack>
 using namespace std;
   
-// Standart Bir İkili Agaç Yapısı
+// Standart Bir Ä°kili AgaÃ§ YapÄ±sÄ±
 struct Dugum
 {
     int data;
     struct Dugum *sol, *sag;
 };
   
-// Yeni düğümler yaratma
+// Yeni dÃ¼ÄŸÃ¼mler yaratma
 Dugum *newDugum(int mydeger)
 {
     Dugum *t = new Dugum;
@@ -18,35 +18,35 @@ Dugum *newDugum(int mydeger)
     return t;
 }
   
-// Verilen iki ağaçta ortak düğümleri bulma
+// Verilen iki aÄŸaÃ§ta ortak dÃ¼ÄŸÃ¼mleri bulma
 int ortakdugumler(Dugum *kok1, Dugum *kok2)
 {
-    // Inorder yapısı baz alınarak iki ağacın nodelerinin iki ayrı yığın yapısına kaydedilmesi
+    // Inorder yapÄ±sÄ± baz alÄ±narak iki aÄŸacÄ±n nodelerinin iki ayrÄ± yÄ±ÄŸÄ±n yapÄ±sÄ±na kaydedilmesi
     stack<Dugum *> stack1, s1, s2;
   
     while (1)
     {
-        // İlk ağacın nodelerinin s1 yığınına push edilmesi
+        // Ä°lk aÄŸacÄ±n nodelerinin s1 yÄ±ÄŸÄ±nÄ±na push edilmesi
         if (kok1)
         {
             s1.push(kok1);
             kok1 = kok1->sol;
         }
   
-        // İkinci ağacın nodelerinin s2 yığınına push edilmesi
+        // Ä°kinci aÄŸacÄ±n nodelerinin s2 yÄ±ÄŸÄ±nÄ±na push edilmesi
         else if (kok2)
         {
             s2.push(kok2);
             kok2 = kok2->sol;
         }
   
-        // İki kök de(kök1 ve kök2) burada NULL durumda 
+        // Ä°ki kÃ¶k de(kÃ¶k1 ve kÃ¶k2) burada NULL durumda 
         else if (!s1.empty() && !s2.empty())
         {
             kok1 = s1.top();
             kok2 = s2.top();
   
-            // İki ağaçtaki mevcut veriler aynıysa
+            // Ä°ki aÄŸaÃ§taki mevcut veriler aynÄ±ysa
                         
             if (kok1->data == kok2->data){
 					
@@ -61,13 +61,13 @@ int ortakdugumler(Dugum *kok1, Dugum *kok2)
   
             else if (kok1->data < kok2->data)
             {
-                /*İlk ağacın düğümü ikinci ağacın düğümünden daha küçükse, 
-				mevcut düğümün inorder sıralamada ikinci ağaç düğümününki ile aynı değere sahip olabileceği açıktır. 
-				Böylece s2'den çıkıyoruz.*/
+                /*Ä°lk aÄŸacÄ±n dÃ¼ÄŸÃ¼mÃ¼ ikinci aÄŸacÄ±n dÃ¼ÄŸÃ¼mÃ¼nden daha kÃ¼Ã§Ã¼kse, 
+				mevcut dÃ¼ÄŸÃ¼mÃ¼n inorder sÄ±ralamada ikinci aÄŸaÃ§ dÃ¼ÄŸÃ¼mÃ¼nÃ¼nki ile aynÄ± deÄŸere sahip olabileceÄŸi aÃ§Ä±ktÄ±r. 
+				BÃ¶ylece s2'den Ã§Ä±kÄ±yoruz.*/
                 s1.pop();
                 kok1 = kok1->sag;
   
-                // 1. ağacın düğümlerine ihtiyaç duyduğumuzdan dolayı kok2'ye NULL değer atandı.
+                // 1. aÄŸacÄ±n dÃ¼ÄŸÃ¼mlerine ihtiyaÃ§ duyduÄŸumuzdan dolayÄ± kok2'ye NULL deÄŸer atandÄ±.
                 kok2 = NULL;
             }
             else if (kok1->data > kok2->data)
@@ -79,12 +79,12 @@ int ortakdugumler(Dugum *kok1, Dugum *kok2)
             }
         }
   
-        // Her iki kök ve her iki yığın da boş
+        // Her iki kÃ¶k ve her iki yÄ±ÄŸÄ±n da boÅŸ
         else  break;
     }
 }
   
-//Inorder sıralama yapmayı sağlama
+//Inorder sÄ±ralama yapmayÄ± saÄŸlama
 void inorder(struct Dugum *kok)
 {
     if (kok)
@@ -95,26 +95,26 @@ void inorder(struct Dugum *kok)
     }
 }
   
-//BST'de verilen verilerle yeni bir düğüm ekleme
+//BST'de verilen verilerle yeni bir dÃ¼ÄŸÃ¼m ekleme
 struct Dugum* insert(struct Dugum* node, int data)
 {
-    //Ağaç boşsa, yeni bir düğüm döndür 
+    //AÄŸaÃ§ boÅŸsa, yeni bir dÃ¼ÄŸÃ¼m dÃ¶ndÃ¼r 
     if (node == NULL) return newDugum(data);
   
-    // değil ise ağacı tekrarla
+    // deÄŸil ise aÄŸacÄ± tekrarla
     if (data < node->data)
         node->sol  = insert(node->sol, data);
     else if (data > node->data)
         node->sag = insert(node->sag, data);
   
-    //Dugum pointerini(değişmemiş) döndür
+    //Dugum pointerini(deÄŸiÅŸmemiÅŸ) dÃ¶ndÃ¼r
     return node;
 }
   
 
 int main()
 {
-    // İlk ağacı oluşturma
+    // Ä°lk aÄŸacÄ± oluÅŸturma
     Dugum *kok1 = NULL;
     kok1 = insert(kok1, 52);
     kok1 = insert(kok1, 13);
@@ -124,7 +124,7 @@ int main()
     kok1 = insert(kok1, 87);
     kok1 = insert(kok1, 28);
   
-    // 2. ağacı oluşturma
+    // 2. aÄŸacÄ± oluÅŸturma
     Dugum *kok2 = NULL;
     kok2 = insert(kok2, 12);
     kok2 = insert(kok2, 77);
